@@ -18,16 +18,31 @@ _.weatherApi = {};
 
 _.weatherApi.key = "46d4b7c5d34fa20f4e66d522546c5d5f";
 
-_.weatherApi.get = function () {};
-
-_.weatherApi.getLocation = function (city) {
-  const query = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=5&appid=${_.weatherApi.key}`;
+_.weatherApi.get = function (lon, lat) {
+  const query = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${_.weatherApi.key}`;
 
   $.ajax({
     url: query,
     dataType: "json",
   }).done(function (response) {
     console.log(response);
+  });
+};
+
+_.weatherApi.getLocation = function (city) {
+  const query = `http://api.openweathermap.org/geo/1.0/direct?q=${city},hu&limit=5&appid=${_.weatherApi.key}`;
+
+  $.ajax({
+    url: query,
+    dataType: "json",
+  }).done(function (response) {
+    response = response[0];
+
+    console.warn(response);
+
+    const { lon, lat } = response;
+
+    _.weatherApi.get(lon, lat);
   });
 };
 
