@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User API</title>
+</head>
+<body>
+    
+    <div class="main">
+
+        <h1>Üdvözöllek az Alkalmazásban.</h1>
+
+        <div class="insert-users">
+
+            <div class="text">
+
+                Az alábbi gombot ha megnyomod, a háttérben az alkalmazás le fog kérni random generált user-t és elmenti egy adatbázisba.
+
+            </div>
+
+            <div class="button api-call"> MEHET! </div>
+
+            <div class="backend-response">
+                
+                <div class="success hidden">
+
+                    <b>Sikeres</b> volt a feltöltés az adatbázisba.
+
+                </div>
+
+                <div class="error hidden">
+
+                    <b>Sikertelen</b> volt a feltöltés az adatbázisba.
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="get-users">
+
+            <div class="text">
+
+                Az alábbi gombot ha megnyomod, akkor az adatbázisban szereplő usereket jeleneti meg a felület.
+
+            </div>
+
+            <div class="button api-call get-users"> MEHET! </div>
+
+            <div class="backend-response">
+
+                <div class="error hidden">
+
+                    Az adatbázisban nincs megjeleníthető adat.
+
+                </div>
+                
+
+            </div>
+
+
+            <div class="users">
+
+
+
+            </div>
+
+
+
+        </div>
+
+        
+    </div>
+    
+    <div class="footer">
+
+        <div class="personal-data-row">
+
+            <div class="title">Készítette</div>
+            
+            <div class="data">Hassan Ádám</div>
+
+        </div>
+
+        <div class="personal-data-row">
+
+            <div class="title">Telefonszám</div> 
+
+            <div class="data">+36317810260</div>
+
+        </div>
+
+        <div class="personal-data-row">
+
+            <div class="title">Email:</div> 
+
+            <div class="data">hassanad94@gmail.com</div>
+
+        </div>
+        
+    </div>
+
+
+    <!-- prototypes -->
+
+    <div class="user prototype">
+
+        <div class="avatar"> <img src="https://randomuser.me/api/portraits/women/64.jpg" alt="avatar"> </div>
+
+        <div class="personal-infos">
+
+
+            <div class="general">
+
+                <div class="name">Tóth Janka Alíz</div>
+
+                <div class="gender">Nő</div>
+                
+                <div class="age">26</div>
+
+                <div class="email">janka.toth@gmail.com</div>
+
+            </div>
+
+            <div class="living">
+
+                <div class="country">Magyarország</div>
+                
+                <div class="city">Hódmezővásárhely</div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="interface.css" type="text/css">
+    <script src="logic.js"></script>
+
+</body>
+</html>

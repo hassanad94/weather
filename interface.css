@@ -1,0 +1,22 @@
+* {
+  position: relative;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+.hidden {
+  display: none;
+  opacity: 0;
+}
+
+.prototype {
+  display: none !important;
+}
+
+.main {
+  max-width: 1280px;
+  margin: auto;
+}
