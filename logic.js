@@ -51,7 +51,7 @@ _.weatherApi.get = function (lon, lat) {
 };
 
 _.weatherApi.getbyLocation = function (city) {
-  const query = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=5&appid=${_.weatherApi.key}`;
+  const query = `http://api.openweathermap.org/geo/1.0/direct?q=${city},hu&limit=5&appid=${_.weatherApi.key}`;
 
   _.weatherApi.requestTime = new Date().hunFormat();
 
@@ -69,6 +69,13 @@ _.weatherApi.getbyLocation = function (city) {
     url: query,
     dataType: "json",
   }).done(function (response) {
+    if (response.length === 0) {
+      _.weatherApi.resultPrototypeClone.html(
+        `<b><i>'${_.weatherApi.requestedCity.toUpperCase()}</i></b>' is not a correct city, please try and other one`
+      );
+      return false;
+    }
+
     response = response[0];
 
     const { lon, lat } = response;
@@ -132,9 +139,9 @@ _.weatherApi.drawResult = function (result) {
   //cloud
   _.weatherApi.resultPrototypeClone.find(".cloud .value").html(cloudsAll);
 
-  clearInterval(_.weatherApi.remoLoadingInterval);
+  clearTimeout(_.weatherApi.remoLoadingTimeout);
 
-  _.weatherApi.remoLoadingInterval = setInterval(function () {
+  _.weatherApi.remoLoadingTimeout = setTimeout(function () {
     _.weatherApi.$ResultContainer.find(".loading").removeClass("loading");
   }, 700);
 };
