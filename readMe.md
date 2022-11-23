@@ -8,10 +8,10 @@ Get weather nowcasts.
 
 ### Weather Nowcast
 
-By entering a city in the field you can easly get nowcast from any city in Hungary.
-Either you use enter or click on Search Button.
+By entering a city in the search field you can easly get nowcast from any city in Hungary.
+Either you can use ENTER button or click on Search Button.
 
-After loading phrase you see will the current weather in the specified city.
+After the loading phrase you see will the current weather in the specified city.
 
 If there is not city what you up for, The UI will let you know.
 
