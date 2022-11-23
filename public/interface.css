@@ -169,7 +169,7 @@ header .navbar .logo img {
   align-items: center;
 }
 
-.main .hero-container .content img {
+.main .hero-container img {
   margin-top: auto;
   opacity: 0.7;
 }
@@ -181,10 +181,10 @@ header .navbar .logo img {
 }
 
 @media (min-width: 1280px) {
-  .main .hero-container .content {
+  .main .hero-container {
     justify-content: space-between;
   }
-  .main .hero-container .content img {
+  .main .hero-container img {
     margin-top: 0;
   }
 }
