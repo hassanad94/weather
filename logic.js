@@ -51,7 +51,7 @@ _.weatherApi.get = function (lon, lat) {
 };
 
 _.weatherApi.getbyLocation = function (city) {
-  const query = `http://api.openweathermap.org/geo/1.0/direct?q=${city},hu&limit=5&appid=${_.weatherApi.key}`;
+  const query = `https://api.openweathermap.org/geo/1.0/direct?q=${city},hu&limit=5&appid=${_.weatherApi.key}`;
 
   _.weatherApi.requestTime = new Date().hunFormat();
 
