@@ -15,8 +15,6 @@ const options = {
   },
 };
 
-// app.use(serveStatic(path.join(__dirname, "public")));
-
 app.use(express.static("public", options));
 
 app.get("/", function (req, res) {
