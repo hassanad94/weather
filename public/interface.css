@@ -175,7 +175,7 @@ header .navbar .logo img {
 }
 
 @media (min-width: 375px) {
-  .main .hero-container .content img {
+  .main .hero-container img {
     max-width: 340px;
   }
 }
