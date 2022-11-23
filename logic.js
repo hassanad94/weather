@@ -14,7 +14,28 @@ _.scroll.to = function (to) {
   return _.window.scrollTop(topOffset);
 };
 
+Date.prototype.hunFormat = function () {
+  const date = this;
+
+  const options = {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  };
+
+  const dateTimeFormat = new Intl.DateTimeFormat("hu-HU", options);
+
+  return dateTimeFormat.format(date);
+};
+
 _.weatherApi = {};
+
+_.weatherApi.requestTime = null;
+
+_.weatherApi.requestedCity;
+
+_.weatherApi.$ResultContainer = $(".weather .info-container");
 
 _.weatherApi.key = "46d4b7c5d34fa20f4e66d522546c5d5f";
 
@@ -25,12 +46,24 @@ _.weatherApi.get = function (lon, lat) {
     url: query,
     dataType: "json",
   }).done(function (response) {
-    console.log(response);
+    _.weatherApi.drawResult(response);
   });
 };
 
-_.weatherApi.getLocation = function (city) {
-  const query = `http://api.openweathermap.org/geo/1.0/direct?q=${city},hu&limit=5&appid=${_.weatherApi.key}`;
+_.weatherApi.getbyLocation = function (city) {
+  const query = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=5&appid=${_.weatherApi.key}`;
+
+  _.weatherApi.requestTime = new Date().hunFormat();
+
+  _.weatherApi.requestedCity = city;
+
+  _.weatherApi.resultPrototypeClone = $(".infos.prototype")
+    .clone()
+    .removeClass("prototype");
+
+  _.weatherApi.$ResultContainer.find(".infos").remove();
+
+  _.weatherApi.$ResultContainer.append(_.weatherApi.resultPrototypeClone);
 
   $.ajax({
     url: query,
@@ -38,12 +71,72 @@ _.weatherApi.getLocation = function (city) {
   }).done(function (response) {
     response = response[0];
 
-    console.warn(response);
-
     const { lon, lat } = response;
 
     _.weatherApi.get(lon, lat);
   });
+};
+
+_.weatherApi.drawResult = function (result) {
+  console.log(result);
+
+  const { lon, lat } = result.coord;
+
+  const { temp, pressure, humidity } = result.main;
+
+  const { icon: weatherIcon } = result.weather[0];
+
+  const { deg: windDeg, speed: windSpeed } = result.wind;
+
+  const rain = result.rain;
+
+  const { all: cloudsAll } = result.clouds.all;
+
+  //time
+  _.weatherApi.resultPrototypeClone
+    .find(".request-time .value")
+    .html(_.weatherApi.requestTime);
+
+  //city
+  _.weatherApi.resultPrototypeClone
+    .find(".city .value")
+    .html(_.weatherApi.requestedCity);
+
+  //coords
+  _.weatherApi.resultPrototypeClone.find(".lat .value").html(Math.floor(lat));
+  _.weatherApi.resultPrototypeClone.find(".lon .value").html(Math.floor(lon));
+
+  //temp
+  _.weatherApi.resultPrototypeClone.find(".current-temp .value").html(temp);
+  _.weatherApi.resultPrototypeClone
+    .find(".current-temp img")
+    .attr("src", `https://openweathermap.org/img/wn/${weatherIcon}@2x.png`);
+
+  //pressure
+  _.weatherApi.resultPrototypeClone.find(".pressure .value").html(pressure);
+
+  //humidity
+  _.weatherApi.resultPrototypeClone.find(".humidity .value").html(humidity);
+
+  //wind
+  _.weatherApi.resultPrototypeClone.find(".wind .speed.value").html(windSpeed);
+  _.weatherApi.resultPrototypeClone
+    .find(".wind .direction.value")
+    .html(windDeg);
+
+  //rain
+  if (typeof rain !== "undefined") {
+    _.weatherApi.resultPrototypeClone.find(".rain .value").html(rain["1h"]);
+  }
+
+  //cloud
+  _.weatherApi.resultPrototypeClone.find(".cloud .value").html(cloudsAll);
+
+  clearInterval(_.weatherApi.remoLoadingInterval);
+
+  _.weatherApi.remoLoadingInterval = setInterval(function () {
+    _.weatherApi.$ResultContainer.find(".loading").removeClass("loading");
+  }, 700);
 };
 
 String.prototype.json = function () {
@@ -139,45 +232,24 @@ _.document
     const selectedElementClassName = `.${button.attr("data-scroll-to")}`;
 
     _.scroll.to(selectedElementClassName);
+  })
+  .on("click", ".weather .form .submit", function () {
+    const button = $(this);
+
+    const searchInput = button.siblings(".search");
+
+    const searchedCity = searchInput.val().trim();
+
+    _.scroll.to(".info-container");
+
+    _.weatherApi.getbyLocation(searchedCity);
+  })
+  .on("keydown", ".weather .form .search", function (event) {
+    const key = event.which;
+
+    if (key !== 13) {
+      return;
+    }
+
+    $(".weather .form .submit").trigger("click");
   });
-
-// $.ajax({
-
-//     url: 'https://randomuser.me/api/',
-//     dataType: 'json'
-
-// }).done( function( response ){
-
-//     response = response[ "results" ];
-
-//     var requiredUserData = [];
-
-//     /*Arra külön védelmet nem állítottam fel, hogy mi van ha hiányos az adat.
-//     Naivan arra spekulálok, hogy az API jól müködik. Természetesen ha kell
-//     nagyon szívesen vizsgálom, hogy minden a helyén van e, de gondoltam nem bonyolítom.*/
-
-//     for( var i = 0 ; i < response.length; i++ ){
-
-//         var currentResponse = response[ i ];
-
-//         var usefullData = {
-
-//             name : currentResponse.name.first + " " + currentResponse.name.last,
-//             gender : currentResponse.gender,
-//             age : currentResponse.dob.age,
-//             email : currentResponse.email,
-//             city : currentResponse.location.city,
-//             country : currentResponse.location.country,
-//             salt : currentResponse.login.salt,
-//             password : currentResponse.login.sha256,
-//             picture : currentResponse.picture.large
-
-//         }
-
-//         requiredUserData.push( usefullData );
-
-//     }
-
-//     uploadToDataBase( requiredUserData );
-
-// });

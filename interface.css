@@ -2,7 +2,8 @@
   --header-height: 80px;
   --base-radius: 8px;
   --color-palete-1: #f67b6f;
-  --color-palete-2: #5c7f7d;
+  --color-palete-2: #4b7371;
+  --low-priority-font-color: #6d6d6d;
 }
 
 html {
@@ -46,8 +47,14 @@ img {
 
 h1 {
   font-family: "Playfair Display", serif;
-  font-size: 48px;
+  font-size: 37px;
   line-height: 1.3;
+}
+
+@media (min-width: 375px) {
+  .h1 {
+    font-size: 45px;
+  }
 }
 
 h2 {
@@ -82,17 +89,49 @@ h3 {
   font-weight: bold;
 }
 
+.loading {
+  background: #f2f1f1;
+  min-height: 30px;
+  overflow: hidden;
+  color: transparent !important;
+}
+
+.loading * {
+  opacity: 0;
+}
+
+.loading img {
+  border-radius: 50% !important;
+}
+
+.loading::before {
+  content: "";
+  position: absolute;
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to right, transparent, #dedede, transparent);
+  transform: translateX(-100%);
+  z-index: 2;
+  animation: loading 1s infinite;
+}
+
+@keyframes loading {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
 .main {
-  max-width: 1280px;
   margin: auto;
 }
 
 .main .content {
   padding: 10px 10px;
+  max-width: 700px;
 }
 
 header {
-  /* height: 400px; */
   height: var(--header-height);
 }
 
@@ -132,12 +171,32 @@ header .navbar .logo img {
 
 .main .hero-container .content img {
   margin-top: auto;
-  max-width: 300px;
   opacity: 0.7;
+}
+
+@media (min-width: 375px) {
+  .main .hero-container .content img {
+    max-width: 340px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .main .hero-container .content {
+    justify-content: space-between;
+  }
+  .main .hero-container .content img {
+    margin-top: 0;
+  }
 }
 
 .main .weather {
   background: var(--color-palete-1);
+}
+.main .weather .content {
+  margin: auto;
+}
+.main .weather .info-container {
+  min-height: 220px;
 }
 
 .main .weather h2 {
@@ -151,13 +210,14 @@ header .navbar .logo img {
 }
 
 .main .weather .form input.search {
-  flex: 1 1 0%;
   border-radius: var(--base-radius);
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
   outline: none;
   border: none;
   padding-left: 15px;
+  flex: 1 1 auto;
+  width: calc(100% - 100px);
 }
 
 .main .weather .form .button {
@@ -184,9 +244,90 @@ header .navbar .logo img {
 }
 
 .main .weather .infos .city {
-  font-size: 25px;
+  margin-right: 10px;
+}
+.main .weather .infos .city .value {
+  text-transform: capitalize;
+}
+.main .weather .infos .coordinates {
+  font-size: 12px;
+  color: var(--low-priority-font-color);
+  flex-basis: 8ch;
+  line-height: 16px;
+}
+.main .weather .infos .coordinates > div {
+  display: inline-block;
 }
 
 .main .weather .infos .icon {
   width: 16px;
+}
+
+.main .weather .infos .general-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.main .weather .infos .current-temp {
+  display: flex;
+  justify-content: space-around;
+}
+.main .weather .infos .current-temp .wrapper {
+  display: flex;
+  align-items: center;
+  font-size: 36px;
+  color: var(--color-palete-2);
+  font-weight: 700;
+}
+
+.main .weather .infos .current-temp img {
+  max-width: 60px;
+  min-width: 60px;
+  filter: drop-shadow(0px 0px 3px #0000009f);
+}
+
+.main .weather .infos .data {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.main .weather .infos .data > div {
+  margin-right: 15px;
+  display: flex;
+  align-items: center;
+  color: var(--low-priority-font-color);
+  margin-bottom: 10px;
+}
+.main .weather .infos .data .value {
+  color: var(--color-palete-2);
+  font-weight: 700;
+  margin-right: 5px;
+}
+.main .weather .infos .data .value.direction {
+  margin-left: 7px;
+}
+
+@media (min-width: 375px) {
+  .main .weather .infos .current-temp .value {
+    margin-right: 10px;
+  }
+}
+
+@media (min-width: 480px) {
+  .main .weather .infos .data-header {
+    display: flex;
+    justify-content: space-between;
+  }
+  .main .weather .infos .data-header .general-info {
+    order: 2;
+  }
+  .main .weather .infos .data-header .current-temp {
+    order: 1;
+  }
+  .main .weather .infos .current-temp .img-wrapper {
+    margin-right: 25px;
+  }
 }
