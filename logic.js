@@ -133,7 +133,11 @@ _.weatherApi.drawResult = function (result) {
 
   //rain
   if (typeof rain !== "undefined") {
-    _.weatherApi.resultPrototypeClone.find(".rain .value").html(rain["1h"]);
+    _.weatherApi.resultPrototypeClone
+      .find(".rain")
+      .removeClass("hidden")
+      .find("value")
+      .html(rain["1h"]);
   }
 
   //cloud

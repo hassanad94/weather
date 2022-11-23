@@ -21,7 +21,7 @@ body {
 }
 
 .hidden {
-  display: none;
+  display: none !important;
   opacity: 0;
 }
 
@@ -100,7 +100,7 @@ h3 {
   opacity: 0;
 }
 
-.loading img {
+.loading.img-wrapper {
   border-radius: 50% !important;
 }
 
@@ -243,18 +243,17 @@ header .navbar .logo img {
   color: var(--color-palete-2);
 }
 
-.main .weather .infos .city {
-  margin-right: 10px;
-}
 .main .weather .infos .city .value {
   text-transform: capitalize;
 }
+
 .main .weather .infos .coordinates {
   font-size: 12px;
   color: var(--low-priority-font-color);
   flex-basis: 8ch;
   line-height: 16px;
 }
+
 .main .weather .infos .coordinates > div {
   display: inline-block;
 }
@@ -274,6 +273,7 @@ header .navbar .logo img {
   display: flex;
   justify-content: space-between;
 }
+
 .main .weather .infos .current-temp .wrapper {
   display: flex;
   align-items: center;
@@ -290,10 +290,16 @@ header .navbar .logo img {
 
 .main .weather .infos .data {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
+  margin-right: -15px;
 }
+
+.main .weather .infos .data.loading {
+  margin-right: 0;
+}
+
 .main .weather .infos .data > div {
   margin-right: 15px;
   display: flex;
@@ -301,11 +307,13 @@ header .navbar .logo img {
   color: var(--low-priority-font-color);
   margin-bottom: 10px;
 }
+
 .main .weather .infos .data .value {
   color: var(--color-palete-2);
   font-weight: 700;
   margin-right: 5px;
 }
+
 .main .weather .infos .data .value.direction {
   margin-left: 7px;
 }
