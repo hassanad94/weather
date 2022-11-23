@@ -218,6 +218,7 @@ header .navbar .logo img {
   padding-left: 15px;
   flex: 1 1 auto;
   width: calc(100% - 100px);
+  margin-bottom: 15px;
 }
 
 .main .weather .form .button {
