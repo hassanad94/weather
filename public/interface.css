@@ -182,8 +182,13 @@ header .navbar .logo img {
 
 @media (min-width: 1280px) {
   .main .hero-container {
+    justify-content: center;
+  }
+
+  .main .hero-container .content {
     justify-content: space-between;
   }
+
   .main .hero-container img {
     margin-top: 0;
   }

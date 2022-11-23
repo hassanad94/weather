@@ -85,8 +85,6 @@ _.weatherApi.getbyLocation = function (city) {
 };
 
 _.weatherApi.drawResult = function (result) {
-  console.log(result);
-
   const { lon, lat } = result.coord;
 
   const { temp, pressure, humidity } = result.main;
@@ -250,6 +248,10 @@ _.document
     const searchInput = button.siblings(".search");
 
     const searchedCity = searchInput.val().trim();
+
+    if (searchedCity.length <= 2) {
+      return false;
+    }
 
     _.scroll.to(".info-container");
 
