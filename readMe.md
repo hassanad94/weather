@@ -19,6 +19,7 @@ If there is not city what you up for, The UI will let you know.
 
 - On Ready, get the browser location and show as initial weather nowcast.
 - Navbar with Hamburger menu
+- Forecast
 
 ## License
 
