@@ -22,6 +22,8 @@ Date.prototype.hunFormat = function () {
     year: "numeric",
     month: "long",
     day: "numeric",
+    hour: "numeric",
+    minute: "numeric",
   };
 
   const dateTimeFormat = new Intl.DateTimeFormat("hu-HU", options);
